@@ -93,8 +93,8 @@ echo
 LINES=$(wc -l /etc/group | cut -d ' ' -f1)
 for i in `seq 1 $LINES`
 do
-GROUP=$(cat /etc/passwd | head -n$i | tail -n1 | cut -d ':' -f1)
-GROUPID=$(cat /etc/passwd | head -n$i | tail -n1 | cut -d ':' -f3)
+GROUP=$(cat /etc/group | head -n$i | tail -n1 | cut -d ':' -f1)
+GROUPID=$(cat /etc/group | head -n$i | tail -n1 | cut -d ':' -f3)
 echo "Group: $GROUP | Group ID: $GROUPID"
 done
 echo
