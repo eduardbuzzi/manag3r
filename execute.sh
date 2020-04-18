@@ -15,8 +15,9 @@ echo -e "Script \033[01;34mroot manage users & groups\033[01;00m created by: \03
 echo -e "More Scripts in => \033[01;31mhttps://github.com/eduardbuzzi\033[01;00m"
 echo
 echo "Do you want to manage"
-echo "[1] User"
-echo "[2] Group"
+echo
+echo "[1] User(s)"
+echo "[2] Group(s)"
 echo "[3] Exit"
 echo
 read -p "Your choice => " CHOICE
@@ -46,6 +47,7 @@ case $CHOICE in
 5) changepassword;;
 6) removeuser;;
 7) principal;;
+*) sleep 0.5 && portaluser;;
 esac
 }
 
