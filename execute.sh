@@ -29,6 +29,7 @@ case $CHOICE in
 *) sleep 0.5 && principal;;
 esac
 }
+
 portaluser () {
 echo "[1] List All Users"
 echo "[2] Add User"
