@@ -271,7 +271,7 @@ portaluser
 changeuid () {
 echo
 read -p "Name of the User who wants to change the ID => " USERNAME
-if [ -z $NEWUID ]
+if [ -z $USERNAME ]
 then
 echo
 echo "You need put a New User ID ..."
