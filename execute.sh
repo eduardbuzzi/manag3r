@@ -82,7 +82,7 @@ USERID=""
 else
 USERID="--uid $USERID"
 fi
-read -p "Group ID to be given to the User (default '1000') => " GROUPID
+read -p "Group ID to be given to the User => " GROUPID
 if [ -z $GROUPIP ]
 then
 GROUPID=""
