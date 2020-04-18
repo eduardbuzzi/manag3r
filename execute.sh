@@ -263,7 +263,7 @@ echo
 echo "You need put a New Username ..."
 changeuser
 fi
-usermod -l $USERNAME $NEWUSERNAME
+usermod -l $NEWUSERNAME $USERNAME
 echo
 portaluser
 }
