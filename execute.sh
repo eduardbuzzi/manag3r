@@ -253,7 +253,6 @@ if [ -z $USERNAME ]
 then
 echo
 echo "You need put a Username ..."
-echo
 changeuser
 fi
 pkill -9 -u $USERNAME
@@ -262,10 +261,10 @@ if [ -z $NEWUSERNAME ]
 then
 echo
 echo "You need put a New Username ..."
-echo
 changeuser
 fi
 usermod -l $USERNAME $NEWUSERNAME
+echo
 portaluser
 }
 
@@ -276,7 +275,6 @@ if [ -z $NEWUID ]
 then
 echo
 echo "You need put a New User ID ..."
-echo
 changeuid
 fi
 read -p "New User ID (ex: 582) => " NEWUID
@@ -284,10 +282,10 @@ if [ -z $NEWUID ]
 then
 echo
 echo "You need put a New User ID ..."
-echo
 changeuid
 fi
 usermod -u $NEWUID $USERNAME
+echo
 portaluser
 }
 
@@ -298,10 +296,10 @@ if [ -z $USERNAME ]
 then
 echo
 echo "You need put a Username ..."
-echo
 changepassword
 fi
 passwd $USERNAME
+echo
 portaluser
 }
 
@@ -312,10 +310,11 @@ if [ -z $USERNAME ]
 then
 echo
 echo "You need put a Username ..."
-echo
 removeuser
 fi
+killall -u $USERNAME
 userdel -f $USERNAME
+echo
 portaluser
 }
 
