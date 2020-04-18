@@ -58,7 +58,7 @@ echo "[2] Add Group"
 echo "[3] Change Group name"
 echo "[4] Change Group ID (GID)"
 echo "[5] Change Group Password"
-echo "[6] Remove User"
+echo "[6] Remove Group"
 echo "[7] Back"
 echo
 read -p "Your choice => " CHOICE
