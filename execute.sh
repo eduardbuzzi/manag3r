@@ -336,7 +336,6 @@ echo
 echo "You need put a Group name ..."
 changegroup
 fi
-pkill -9 -u $GROUPNAME
 read -p "New Group name => " NEWGROUPNAME
 if [ -z $NEWGROUPNAME ]
 then
