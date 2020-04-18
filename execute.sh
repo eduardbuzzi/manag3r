@@ -111,7 +111,7 @@ esac
 
 choosehomedir () {
 echo
-read -p "Inform the path (ex: '/yourchoice/$USERNAME') " PATTH
+read -p "Inform the path (ex: '/yourchoice/$USERNAME') => " PATTH
 HOMEDIR="--home $PATTH"
 if [ -z $PATTH ]
 then
