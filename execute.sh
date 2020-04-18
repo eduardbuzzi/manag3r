@@ -14,7 +14,7 @@ echo
 echo -e "Script \033[01;34mroot manage users & groups\033[01;00m created by: \033[01;32mEduardo Buzzi\033[01;00m"
 echo -e "More Scripts in => \033[01;31mhttps://github.com/eduardbuzzi\033[01;00m"
 echo
-echo "Do you want to manage"
+echo "Do you want to Manage"
 echo
 echo "[1] User(s)"
 echo "[2] Group(s)"
