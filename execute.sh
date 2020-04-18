@@ -12,14 +12,14 @@ exit
 fi
 echo
 echo -e "Script \033[01;34mroot manage users & groups\033[01;00m created by: \033[01;32mEduardo Buzzi\033[01;00m"
-echo -e "More Scripts in: \033[01;31mhttps://github.com/eduardbuzzi\033[01;00m"
+echo -e "More Scripts in => \033[01;31mhttps://github.com/eduardbuzzi\033[01;00m"
 echo
 echo "Do you want to manage"
 echo "[1] User"
 echo "[2] Group"
 echo "[3] Exit"
 echo
-read -p "Your choice: " CHOICE
+read -p "Your choice => " CHOICE
 echo
 case $CHOICE in
 1) portaluser;;
@@ -37,10 +37,11 @@ echo "[5] Change User Password"
 echo "[6] Remove User"
 echo "[7] Back"
 echo
-read -p "Your choice: " CHOICE
+read -p "Your choice => " CHOICE
 case $CHOICE in
 1) listallusers;;
 2) addduser;;
+3) changeuser;;
 6) principal;;
 esac
 }
@@ -62,21 +63,21 @@ portaluser
 
 addduser () {
 echo
-read -p "Name to be given to the User: " USERNAME
+read -p "Name to be given to the User => " USERNAME
 if [ -z $USERNAME ]
 then
 echo
 echo "You need to enter a Username"
 addduser
 fi
-read -p "ID that will be given to the User: " USERID
+read -p "ID that will be given to the User => " USERID
 if [ -z $USERID ]
 then
 USERID=""
 else
 USERID="--uid $USERID"
 fi
-read -p "Group ID to be given to the User (default '1000'): " GROUPID
+read -p "Group ID to be given to the User (default '1000') => " GROUPID
 if [ -z $GROUPIP ]
 then
 GROUPID=""
@@ -94,7 +95,7 @@ echo "[3] Create User without Home Directory"
 echo "[4] Back and change information (User name, user ID or user group ID)"
 echo "[5] Back to User Menu"
 echo
-read -p "Your choice: " CHOICE
+read -p "Your choice => " CHOICE
 case $CHOICE in
 1) choosehomedir;;
 2) homedirdefault;;
@@ -133,7 +134,7 @@ echo "[3] ZSH Shell"
 echo "[4] No Shell"
 echo "[5] Back and change the Home Directory"
 echo
-read -p "Your choice: " CHOICE
+read -p "Your choice => " CHOICE
 echo
 case $CHOICE in
 1) bashshell;;
@@ -197,7 +198,7 @@ echo "[1] Add Comment"
 echo "[2] Do not Add Comment"
 echo "[3] Back and change the Password choice"
 echo
-read -p "Your choice: " CHOICE
+read -p "Your choice => " CHOICE
 echo
 case $CHOICE in
 1) addcomment;;
@@ -208,13 +209,13 @@ esac
 }
 
 addcomment () {
-read -p "Comment: " COMMENT
+read -p "Comment => " COMMENT
 COMMENT='-c "$COMMENT"'
 echo
 echo "[1] Continue, Finish and Create User"
 echo "[2] Back and change the Comment choice"
 echo
-read -p "Your choice: " CHOICE
+read -p "Your choice => " CHOICE
 echo
 case $CHOICE in
 1) createuser;;
@@ -228,7 +229,7 @@ COMMENT=""
 echo "[1] Continue, Finish and Create User"
 echo "[2] Back and change the Comment choice"
 echo
-read -p "Your choice: " CHOICE
+read -p "Your choice => " CHOICE
 echo
 case $CHOICE in
 1) createuser;;
@@ -243,16 +244,46 @@ principal
 }
 
 changeuser () {
-read -p "" USERNAME
+read -p "Name of the User who wants to change the name => " USERNAME
+if [ -z $USERNAME ]
+then
+echo
+echo "You need put a Username ..."
+echo
+changeuser
+fi
 pkill -9 -u $USERNAME
-read -p "" NEWUSERNAME
+read -p "New Username => " NEWUSERNAME
+if [ -z $NEWUSERNAME ]
+then
+echo
+echo "You need put a New Username ..."
+echo
+changeuser
+fi
 usermod -l $USERNAME $NEWUSERNAME
+principal
 }
 
 changeuid () {
-read -p "" USERNAME
-read -p "" NEWUID
+read -p "Name of the User who wants to change the ID => " USERNAME
+if [ -z $NEWUID ]
+then
+echo
+echo "You need put a New User ID ..."
+echo
+changeuid
+fi
+read -p "New User ID (ex: 582) => " NEWUID
+if [ -z $NEWUID ]
+then
+echo
+echo "You need put a New User ID ..."
+echo
+changeuid
+fi
 usermod -u $NEWUID $USERNAME
+principal
 }
 
 removeuser () {
