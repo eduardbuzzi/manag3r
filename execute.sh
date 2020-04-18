@@ -42,7 +42,10 @@ case $CHOICE in
 1) listallusers;;
 2) addduser;;
 3) changeuser;;
-6) principal;;
+4) changeuid;;
+5) changepassword;;
+6) removeuser;;
+7) principal;;
 esac
 }
 
@@ -240,10 +243,11 @@ esac
 
 createuser () {
 adduser --quiet $HOMEDIR $SHELL $PASSWORD $COMMENT $USERID $GROUPID $USERNAME
-principal
+portaluser
 }
 
 changeuser () {
+echo
 read -p "Name of the User who wants to change the name => " USERNAME
 if [ -z $USERNAME ]
 then
@@ -262,10 +266,11 @@ echo
 changeuser
 fi
 usermod -l $USERNAME $NEWUSERNAME
-principal
+portaluser
 }
 
 changeuid () {
+echo
 read -p "Name of the User who wants to change the ID => " USERNAME
 if [ -z $NEWUID ]
 then
@@ -283,11 +288,35 @@ echo
 changeuid
 fi
 usermod -u $NEWUID $USERNAME
-principal
+portaluser
+}
+
+changepassword () {
+echo
+read -p "Name of the User who wants to change the Password => " USERNAME
+if [ -z $USERNAME ]
+then
+echo
+echo "You need put a Username ..."
+echo
+changepassword
+fi
+passwd $USERNAME
+portaluser
 }
 
 removeuser () {
 echo
+read -p "Name of the User to be Deleted => " USERNAME
+if [ -z $USERNAME ]
+then
+echo
+echo "You need put a Username ..."
+echo
+removeuser
+fi
+userdel -f $USERNAME
+portaluser
 }
 
 principal
