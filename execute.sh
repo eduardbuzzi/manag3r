@@ -51,6 +51,28 @@ case $CHOICE in
 esac
 }
 
+portalgroup () {
+echo "[1] List All Groups"
+echo "[2] Add Group"
+echo "[3] Change Group name"
+echo "[4] Change Group ID (GID)"
+echo "[5] Change Group Password"
+echo "[6] Remove User"
+echo "[7] Back"
+echo
+read -p "Your choice => " CHOICE
+case $CHOICE in
+1) listallgroups;;
+2) adddgroup;;
+3) changegroup;;
+4) changegid;;
+5) changegrouppassword;;
+6) removegroup;;
+7) principal;;
+*) sleep 0.5 && portaluser;;
+esac
+}
+
 listallusers () {
 echo
 LINES=$(wc -l /etc/passwd | cut -d ' ' -f1)
@@ -64,6 +86,19 @@ echo "User: $USER | User ID: $USERID | Group ID: $GROUPID | Home Directory: $HOM
 done
 echo
 portaluser
+}
+
+listallgroups () {
+echo
+LINES=$(wc -l /etc/group | cut -d ' ' -f1)
+for i in `seq 1 $LINES`
+do
+GROUP=$(cat /etc/passwd | head -n$i | tail -n1 | cut -d ':' -f1)
+GROUPID=$(cat /etc/passwd | head -n$i | tail -n1 | cut -d ':' -f3)
+echo "Group: $GROUP | Group ID: $GROUPID"
+done
+echo
+portalgroup
 }
 
 addduser () {
@@ -90,6 +125,27 @@ else
 GROUPID="--gid $GROUPID"
 fi
 homedir
+}
+
+adddgroup () {
+echo
+read -p "Name to be given to the Group => " GROUPNAME
+if [ -z $GROUPNAME ]
+then
+echo
+echo "You need to enter a Group name"
+adddgroup
+fi
+read -p "ID that will be given to the Group => " GROUPID
+if [ -z $GROUPID ]
+then
+GROUPID=""
+else
+GROUPID="--gid $GROUPID"
+fi
+addgroup $GROUPID $GROUPNAME
+echo
+portalgroup
 }
 
 homedir () {
@@ -271,13 +327,35 @@ echo
 portaluser
 }
 
+changegroup () {
+echo
+read -p "Name of the Group who wants to change the name => " GROUPNAME
+if [ -z $GROUPNAME ]
+then
+echo
+echo "You need put a Group name ..."
+changegroup
+fi
+pkill -9 -u $GROUPNAME
+read -p "New Group name => " NEWGROUPNAME
+if [ -z $NEWGROUPNAME ]
+then
+echo
+echo "You need put a New Group name ..."
+changegroup
+fi
+groupmod --new-name $NEWGROUPNAME $GROUPNAME
+echo
+portalgroup
+}
+
 changeuid () {
 echo
 read -p "Name of the User who wants to change the ID => " USERNAME
 if [ -z $USERNAME ]
 then
 echo
-echo "You need put a New User ID ..."
+echo "You need put a Username ..."
 changeuid
 fi
 read -p "New User ID (ex: 582) => " NEWUID
@@ -292,6 +370,27 @@ echo
 portaluser
 }
 
+changegid () {
+echo
+read -p "Name of the Group who wants to change the ID => " GROUPNAME
+if [ -z $GROUPNAME ]
+then
+echo
+echo "You need put a Group name ..."
+changegid
+fi
+read -p "New Group ID (ex: 582) => " NEWGID
+if [ -z $NEWGID ]
+then
+echo
+echo "You need put a New Group ID ..."
+changegid
+fi
+groupmod -g $NEWGID $GROUPNAME
+echo
+portalgroup
+}
+
 changepassword () {
 echo
 read -p "Name of the User who wants to change the Password => " USERNAME
@@ -301,9 +400,25 @@ echo
 echo "You need put a Username ..."
 changepassword
 fi
+echo
 passwd $USERNAME
 echo
 portaluser
+}
+
+changegrouppassword () {
+echo
+read -p "Name of the Group who wants to change the Password => " GROUPNAME
+if [ -z $GROUPNAME ]
+then
+echo
+echo "You need put a Group name ..."
+changegrouppassword
+fi
+echo
+gpasswd $GROUPNAME
+echo
+portalgroup
 }
 
 removeuser () {
@@ -321,4 +436,17 @@ echo
 portaluser
 }
 
+removegroup () {
+echo
+read -p "Name of the Group to be Deleted => " GROUPNAME
+if [ -z $GROUPNAME ]
+then
+echo
+echo "You need put a Group name ..."
+removegroup
+fi
+groupdel -f $GROUPNAME
+echo
+portalgroup
+}
 principal
