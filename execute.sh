@@ -170,13 +170,13 @@ password
 }
 
 password () {
-echo
 echo "Put Password on the User?"
+echo
 echo "[1] Yes"
 echo "[2] No"
 echo "[3] Back and change the Shell choice"
 echo
-read -p "Your choice: " CHOICE
+read -p "Your choice => " CHOICE
 echo
 case $CHOICE in
 1) passyes;;
@@ -243,6 +243,7 @@ esac
 
 createuser () {
 adduser --quiet $HOMEDIR $SHELL $PASSWORD $COMMENT $USERID $GROUPID $USERNAME
+echo
 portaluser
 }
 
